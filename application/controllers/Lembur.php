@@ -27,6 +27,7 @@ class Lembur extends MY_Controller {
 	}
 
 	public function form($form_title = "", $detail = "no") {
+		$list_karyawan = $this->master_model->show("*", "karyawan")->get();
 		$id = $this->input->post("id");
 		$id_params = !empty($id) ? "/$id" : "";
 		$detail_data = array();
@@ -38,6 +39,7 @@ class Lembur extends MY_Controller {
 		$data['save_url'] = $save_url;
 		$data['detail'] = $detail == "yes" ? true : false;
 		$data['detail_data'] = $detail_data;
+		$data['list_karyawan'] = $list_karyawan->result_array();
 		$this->load->view($this->router->class.'/manage', $data);
 	}
 

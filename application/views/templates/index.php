@@ -194,18 +194,18 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="<?= site_url("cuti") ?>" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>
-                Cuti
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="<?= site_url("lembur") ?>" class="nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>
                 Lembur
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= site_url("cuti") ?>" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Cuti
               </p>
             </a>
           </li>

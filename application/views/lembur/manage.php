@@ -5,26 +5,25 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label>NIP</label>
-        <input type="text" class="form-control" name="nama_golongan" value="<?= isset($detail_data["nama_golongan"]) ? $detail_data["nama_golongan"] : "" ?>" <?= $detail ? "readonly" : "" ?>>
-      </div>
-      <div class="form-group">
-        <label>NIK</label>
-        <input type="text" class="form-control" name="nama_golongan" value="<?= isset($detail_data["nama_golongan"]) ? $detail_data["nama_golongan"] : "" ?>" <?= $detail ? "readonly" : "" ?>>
-      </div>
-      <div class="form-group">
-        <label>Nama</label>
-        <input type="text" class="form-control" name="nama_golongan" value="<?= isset($detail_data["nama_golongan"]) ? $detail_data["nama_golongan"] : "" ?>" <?= $detail ? "readonly" : "" ?>>
-      </div>
-      <div class="form-group">
-        <label>Jenis Kelamin</label>
-        <select name="" class="form-control">
-          <option value="pria">Laki - Laki</option>
-          <option value="wanita">Perempuan</option>
+        <label>Karyawan</label>
+        <select name="karyawan_id" class="form-control">
+          <?php
+            foreach($list_karyawan as $karyawan){
+          ?>
+          <option value="<?= $karyawan['id'] ?>"><?= $karyawan['nama'] ?></option>
+          <?php
+            }
+          ?>
         </select>
       </div>
-
-
+      <div class="form-group">
+        <label>Tanggal Lembur</label>
+        <input type="date" class="form-control" name="tanggal_lembur" value="<?= isset($detail_data["tanggal_lembur"]) ? $detail_data["tanggal_lembur"] : "" ?>" <?= $detail ? "readonly" : "" ?>>
+      </div>
+      <div class="form-group">
+        <label>Jumlah</label>
+        <input type="number" class="form-control" name="jumlah" value="<?= isset($detail_data["jumlah"]) ? $detail_data["jumlah"] : "" ?>" <?= $detail ? "readonly" : "" ?>>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
