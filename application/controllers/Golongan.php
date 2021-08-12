@@ -7,16 +7,23 @@ class Golongan extends MY_Controller {
     parent::__construct();
 		$this->table = "golongan";
 	}
-	public function index()
-	{
+
+	public function index() {
+		$data['title'] = "List";
+		$data['table'] = site_url($this->router->class.'/table');
+		$data['form_add'] = site_url($this->router->class.'/form/Add');
+		$this->template($this->router->class.'/list', $data);
+	}
+
+	public function table() {
 		$list_data = $this->master_model->show("*", $this->table)->get();
 		
-		$data['title'] = "List";
 		$data['list_data'] = $list_data->result_array();
-		$data['form_add'] = site_url($this->router->class.'/form/Add');
 		$data['form_edit'] = site_url($this->router->class.'/form/Edit');
 		$data['form_detail'] = site_url($this->router->class.'/form/Detail/yes');
-		$this->template($this->router->class.'/list', $data);
+		$data['delete_url'] = site_url($this->router->class.'/delete');
+
+		$this->load->view($this->router->class.'/table', $data);
 	}
 
 	public function form($form_title = "", $detail = "no") {
@@ -37,6 +44,7 @@ class Golongan extends MY_Controller {
 	public function save($id = "") {
 		$response["success"] = false;
 		$response["message"] = "Terjadi kesalahan";
+		$response["table"] = site_url($this->router->class.'/table');
 		$data_input = $this->input->post();
 
 		if(!empty($id)){
@@ -58,6 +66,20 @@ class Golongan extends MY_Controller {
 			}
 		}
 
+		echo json_encode($response);
+	}
+
+	public function delete($id = "") {
+		$response["success"] = false;
+		$response["message"] = "Terjadi kesalahan";
+
+		if(!empty($id)){
+
+		}else{
+			$response["message"] = "Mohon pilih ID";
+		}
+
+		
 		echo json_encode($response);
 	}
 }

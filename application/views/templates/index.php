@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="<?= base_url("assets/plugins/fontawesome-free/css/all.min.css"); ?>">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   
+  <link rel="stylesheet" href="<?= base_url("assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"); ?>">
+
   <link rel="stylesheet" href="<?= base_url("assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"); ?>">
   <link rel="stylesheet" href="<?= base_url("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css"); ?>">
   <link rel="stylesheet" href="<?= base_url("assets/dist/css/adminlte.min.css"); ?>">
@@ -26,10 +28,41 @@
   <script src="<?= base_url("assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"); ?>"></script>
   <script src="<?= base_url("assets/plugins/datatables/jquery.dataTables.js"); ?>"></script>
   <script src="<?= base_url("assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"); ?>"></script>
+  
+  <script src="<?= base_url("assets/plugins/sweetalert2/sweetalert2.min.js"); ?>"></script>
+
   <script src="<?= base_url("assets/dist/js/adminlte.js"); ?>"></script>
   <script src="<?= base_url("assets/dist/js/pages/dashboard.js"); ?>"></script>
   <script>
+    function getData(tableUrl, reload){
+      const tableSettings = {
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": true,
+      };
+      $.ajax({
+        type      : "GET",
+        url       : tableUrl,
+        dataType  : 'HTML',
+        success: function(response){
+          $("#tableData tbody").html(response);
+          // let tableData = $('#tableData').DataTable(tableSettings);
+        },
+        error: function(){
+          
+        }
+      })
+    }
     function saveData(myNode){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
       let myModal = $(myNode).parents("div.modal");
       let myForm = $(myNode).parents("form");
       let formData = myForm.serialize();
@@ -43,24 +76,26 @@
         dataType  : 'JSON',
         success: function(response){
           if(response.success){
-            $(myModal).modal("toggle");
-            $('#pesan').find("div.toast-header").html("SUKSES");
-            $('#pesan').find("div.toast-body").html(response.message);
-            $('#pesan').toast('show');
+            $(myModal).modal("toggle");            
+            Toast.fire({
+              type: 'info',
+              title: response.message
+            });
+            getData(response.table);
           }else{
-            $('#pesan').find("div.toast-header").html("OPPS ERROR");
-            $('#pesan').find("div.toast-body").html(response.message);
-            $('#pesan').toast('show');
+            Toast.fire({
+              type: 'warning',
+              title: response.message
+            });
           }
         },
         error: function(){
-          $('#pesan').find("div.toast-header").html("MAAF");
-          $('#pesan').find("div.toast-body").html("TERJADI KESALAHAN TIDAK TERDUGA");
-          $('#pesan').toast('show');
+          Toast.fire({
+            type: 'error',
+            title: "TERJADI KESALAHAN TIDAK TERDUGA"
+          });
         }
       })
-      // $(myModal).modal("toggle");
-      console.log("FORM =====>", myForm.attr("method"));
     }
     function open_form(a) {
       var t = $(a).attr("data-source"),
@@ -212,14 +247,6 @@
   </div>
   <div class="content-wrapper">
     <?= isset($contents)?$contents:'' ?>
-  </div>
-</div>
-<div class="toast" id="#pesan">
-  <div class="toast-header">
-    JUDUL PESAN
-  </div>
-  <div class="toast-body">
-    ISI PESAN
   </div>
 </div>
 </body>

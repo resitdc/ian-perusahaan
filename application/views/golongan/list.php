@@ -16,7 +16,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <table id="example2" class="table table-bordered table-hover">
+      <table id="tableData" class="table table-bordered table-hover">
         <thead>
         <tr>
           <th width="30px">No</th>
@@ -26,24 +26,6 @@
         </tr>
         </thead>
         <tbody>
-          <?php
-          $i = 1;
-          foreach($list_data as $detail) {
-          ?>
-          <tr>
-            <td><?= $i; ?></td>
-            <td><?= $detail['nama_golongan']; ?></td>
-            <td><?= $detail['gaji_pokok']; ?></td>
-            <td>
-              <button type="button" class="btn btn-info btn-sm" data-source="<?= $form_detail; ?>" data-id="<?= $detail['id'] ?>" data-toggle="tooltip" title="Add Data" onClick="open_form(this);"> DETAIL </button>
-              <button type="button" class="btn btn-success btn-sm" data-source="<?= $form_edit; ?>" data-id="<?= $detail['id'] ?>" data-toggle="tooltip" title="Add Data" onClick="open_form(this);"> EDIT </button>
-              <button type="button" class="btn btn-danger btn-sm" data-id="<?= $detail["id"] ?>"> DELETE </button>
-            </td>
-          </tr>
-          <?php
-            $i++;
-            }
-          ?>
         </tbody>
       </table>
     </div>
@@ -53,13 +35,6 @@
 
 <script>
   $(function () {
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true,
-    });
+    getData("<?= $table ?>");
   });
 </script>
