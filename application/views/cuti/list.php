@@ -11,7 +11,7 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Data Lembur</h3>
+      <h3 class="card-title">Data Cuti</h3>
       <button type="button" class="btn btn-sm btn-primary float-right" data-source="<?= $form_add; ?>" data-id="" data-toggle="tooltip" title="Add Data" onClick="open_form(this);">Add Data</button>
     </div>
     <!-- /.card-header -->
