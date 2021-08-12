@@ -713,6 +713,9 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <h1>TESTING</h1>
+      <h1>Restu Dwi Cahyo</h1>
+      <h1>TESTING</h1>
+      <h1>TESTING</h1>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
