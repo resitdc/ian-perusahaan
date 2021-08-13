@@ -34,7 +34,58 @@
   <script src="<?= base_url("assets/dist/js/adminlte.js"); ?>"></script>
   <script src="<?= base_url("assets/dist/js/pages/dashboard.js"); ?>"></script>
   <script>
-    function getData(tableUrl, reload){
+    function openModalDelete(myObject) {
+      const modalDelete = $("#modal-delete");
+      const primaryKey = $(myObject).data("id");
+      let deleteUrl = $(myObject).attr("delete-url");
+      modalDelete.attr("delete-url", deleteUrl);
+      modalDelete.attr("primary-key", primaryKey);
+
+      $("#modal-delete").modal('show');
+    }
+
+    function deleteData(myObject) {
+      let myModal = $(myObject).parents("div.modal");
+      let deleteUrl = myModal.attr("delete-url");
+      let primaryKey = myModal.attr("primary-key");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      
+      $.ajax({
+        type      : "GET",
+        url       : deleteUrl,
+        data      : { id: primaryKey },
+        dataType  : 'JSON',
+        success: function(response){
+          if(response.success){
+            $("#modal-delete").modal("toggle");            
+            Toast.fire({
+              type: 'info',
+              title: response.message
+            });
+            getData(response.table);
+          }else{
+            Toast.fire({
+              type: 'warning',
+              title: response.message
+            });
+          }
+        },
+        error: function(){
+          Toast.fire({
+            type: 'error',
+            title: "TERJADI KESALAHAN TIDAK TERDUGA"
+          });
+        }
+      })
+    }
+
+    function getData(tableUrl, reload) {
       const tableSettings = {
         "paging": true,
         "lengthChange": true,
@@ -224,6 +275,22 @@
     <!-- /.sidebar -->
   </aside>
 
+  <div class="modal fade" id="modal-delete" delete-url="" primary-key="">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class= "modal-body">
+          <h3 class="text-center">Are you sure want delete this data ?</h2>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+          <button type="button" class="btn btn-danger" onclick="deleteData(this)">YES</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
   <div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-large">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">

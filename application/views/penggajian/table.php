@@ -6,7 +6,7 @@ foreach($list_data as $detail) {
   <td><?= $i; ?></td>
   <td><?= $detail['nik']; ?></td>
   <td><?= $detail['nama']; ?></td>
-  <td><?= $detail['jenis_kelamin']; ?></td>
+  <td><?= $detail['total_gaji_diterima']; ?></td>
   <td>
     <button type="button" class="btn btn-info btn-sm" data-source="<?= $form_detail; ?>" data-id="<?= $detail['id'] ?>" data-toggle="tooltip" title="Add Data" onClick="open_form(this);"> DETAIL </button>
     <button type="button" class="btn btn-success btn-sm" data-source="<?= $form_edit; ?>" data-id="<?= $detail['id'] ?>" data-toggle="tooltip" title="Add Data" onClick="open_form(this);"> EDIT </button>

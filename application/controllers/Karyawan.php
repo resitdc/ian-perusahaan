@@ -43,6 +43,26 @@ class Karyawan extends MY_Controller {
 		$this->load->view($this->router->class.'/manage', $data);
 	}
 
+	public function delete() {
+		$response["success"] = false;
+		$response["message"] = "Terjadi kesalahan";
+		$response["table"] = site_url($this->router->class.'/table');
+		$id = $this->input->get("id");
+		if(!empty($id)){
+			$where['id'] = $id;
+			$delete_data = $this->master_model->delete($where, $this->table);
+			if($delete_data){
+				$response["success"] = true;
+				$response["message"] = "Data berhasil dihapus";
+			}else{
+				$response["message"] = "Data gagal dihapus";
+			}
+		}else{
+			$response["message"] = "Tidak ada data yang dipilih";
+		}
+		echo json_encode($response);
+	}
+
 	public function save($id = "") {
 		$response["success"] = false;
 		$response["message"] = "Terjadi kesalahan";
@@ -71,17 +91,4 @@ class Karyawan extends MY_Controller {
 		echo json_encode($response);
 	}
 
-	public function delete($id = "") {
-		$response["success"] = false;
-		$response["message"] = "Terjadi kesalahan";
-
-		if(!empty($id)){
-
-		}else{
-			$response["message"] = "Mohon pilih ID";
-		}
-
-		
-		echo json_encode($response);
-	}
 }
