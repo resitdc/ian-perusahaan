@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>List Cuti</h1>
+        <h1>List Penggajian</h1>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Data Cuti</h3>
+      <h3 class="card-title">Data Penggajian</h3>
       <button type="button" class="btn btn-sm btn-primary float-right" data-source="<?= $form_add; ?>" data-id="" data-toggle="tooltip" title="Add Data" onClick="open_form(this);">Add Data</button>
     </div>
     <!-- /.card-header -->
